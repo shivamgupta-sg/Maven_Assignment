@@ -10,6 +10,14 @@ pipeline {
             steps {
                 sh "mvn compile"
             }
+            post {
+                success {
+                    echo 'Compiled SUccessfully'
+                }
+                failure {
+                    echo 'Compiled failed'
+                }
+            }
         }
         stage('--test--') {
             steps {
