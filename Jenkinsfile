@@ -17,6 +17,9 @@ pipeline {
             }
         }
         stage('--package--') {
+            when {
+                branch 'main'
+            }
             steps {
                 sh "mvn package"
             }
