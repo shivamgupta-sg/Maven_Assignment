@@ -1,0 +1,32 @@
+---
+resources:
+  - name: source-code
+    type: git
+    source:
+      uri: https://github.com/shivamgupta-sg/Maven_Assignment
+      branch: main
+
+jobs:
+  - name: unit-test
+    plan:
+      - get: source-code
+        trigger: true
+      - task: mvn-compile
+        file: "source-code/concourse-ci/tasks/maven-compile.yml"
+    #   - task: compile-code
+    #     config:
+    #       platform: linux
+    #       image_resource:
+    #         type: docker-image
+    #         source:
+    #           repository: maven
+
+    #       inputs:
+    #         - name: source-code
+
+    #       run:
+    #         path: mvn
+    #         args:
+    #           - source-code/pom.xml
+    #           - clean
+    #           - compile
