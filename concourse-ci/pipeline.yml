@@ -10,8 +10,8 @@ resources:
   type: git-multibranch
   source:
     uri: https://github.com/shivamgupta-sg/Maven_Assignment
-    branches: '.feature*'
-    ignore_branches: '(main)'
+    branches: '.*'
+    ignore_branches: '(main|dev)'
 
 - name: main-branch-source-code
   type: git-multibranch
@@ -23,17 +23,21 @@ resources:
 jobs:
 - name: main-branch-building
   plan:
-    - get: main-branch-source-code
+    - in_parallel:    
+      - get: main-branch-source-code
+        trigger: true
+      - get: feature-branch-source-code
+        trigger: true
 
-    - task: main-branch-task
-      file: "main-branch-source-code/concourse-ci/tasks/maven-compile.yml"
+    - in_parallel:    
+      - task: main-branch-task
+        file: "main-branch-source-code/concourse-ci/tasks/maven-compile.yml"
+      - task: feature-branch-task
+        file: "feature-branch-source-code/concourse-ci/tasks/maven-compile.yml"
 
-- name: feature-branch-building
-  plan:
-    - get: feature-branch-source-code
+    
 
-    - task: feature-branch-task
-      file: "feature-branch-source-code/concourse-ci/tasks/maven-compile.yml"
+    
 
 
 
