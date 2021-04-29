@@ -14,6 +14,6 @@ run:
   path: "mvn"
   args:
     - -f
-    - source-code/pom.xml
+    - feature-branch-source-code/pom.xml
     - clean
     - compile
