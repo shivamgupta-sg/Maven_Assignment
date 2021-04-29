@@ -17,4 +17,5 @@ run:
     - main-branch-source-code/pom.xml
     - clean
     - compile
+    - test
     - package

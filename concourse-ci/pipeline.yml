@@ -17,7 +17,7 @@ resources:
   type: git-multibranch
   source:
     uri: https://github.com/shivamgupta-sg/Maven_Assignment
-    branches: '.main'
+    branch: main
     # ignore_branches: '(main)'
 
 jobs:
@@ -26,14 +26,14 @@ jobs:
     - get: main-branch-source-code
 
     - task: main-branch-task
-      file: "source-code/concourse-ci/tasks/maven-compile.yml"
+      file: "main-branch-source-code/concourse-ci/tasks/maven-compile.yml"
 
 - name: feature-branch-building
   plan:
     - get: feature-branch-source-code
 
     - task: feature-branch-task
-      file: "source-code/concourse-ci/tasks/maven-compile.yml"
+      file: "feature-branch-source-code/concourse-ci/tasks/maven-compile.yml"
 
 
 
