@@ -21,18 +21,19 @@ resources:
     # ignore_branches: '(main)'
 
 jobs:
-- name: building-multibranch
+- name: main-branch-building
   plan:
-  - in_parallel:     
-    - get: feature-branch-source-code
     - get: main-branch-source-code
 
-  - task: main-branch-task
-    file: "source-code/concourse-ci/tasks/maven-compile.yml"
-  - task: feature-branch-task
-    file: "source-code/concourse-ci/tasks/maven-compile.yml"
+    - task: main-branch-task
+      file: "source-code/concourse-ci/tasks/maven-compile.yml"
 
+- name: feature-branch-building
+  plan:
+    - get: feature-branch-source-code
 
+    - task: feature-branch-task
+      file: "source-code/concourse-ci/tasks/maven-compile.yml"
 
 
 
